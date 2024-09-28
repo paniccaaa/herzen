@@ -1,0 +1,7 @@
+README.md
+setup.py
+getweatherdatalr3prog.egg-info/PKG-INFO
+getweatherdatalr3prog.egg-info/SOURCES.txt
+getweatherdatalr3prog.egg-info/dependency_links.txt
+getweatherdatalr3prog.egg-info/requires.txt
+getweatherdatalr3prog.egg-info/top_level.txt
