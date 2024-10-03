@@ -17,15 +17,16 @@ class FibonacchiLst:
         self.index = 0
 
     def __iter__(self):
-        return self
+        return self # возвращаем итератор(сам класс)
 
     def __next__(self):
+        """Возвращает следующее число Фибоначчи из списка, если оно есть."""
         while self.index < len(self.lst):
             val = self.lst[self.index]
             self.index += 1
             if val in self.fib_set:
                 return val
-        raise StopIteration
+        raise StopIteration # если элементы пройдены останавливаем итерацию 
 
 # Пример использования:
 lst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1]
@@ -34,9 +35,8 @@ print(list(fib_iterator))  # [0, 1, 2, 3, 5, 8, 1]
 
 # Задание 3 - Реализация с помощью itertools
 
-from itertools import islice
-
 def fib_iter(iterable):
+    """Функция для фильтрации чисел Фибоначчи в переданном iterable."""
     max_val = max(iterable)
     fib_sequence = fib(max_val)
     return [x for x in iterable if x in fib_sequence]
@@ -50,22 +50,24 @@ print(fib_iter(l))  # [0, 1, 1, 2, 3, 5, 8, 13]
 # import functools
 
 # def fibonacci_gen():
+#     """Генератор, который бесконечно возвращает числа Фибоначчи"""
 #     a, b = 0, 1
-#     while True:
-#         yield a
+#     while True: # while true используется для того, чтобы каждый раз при вызове next() выдавать очередное число
+#         yield a # возвращаем текущее значение
 #         a, b = b, a + b
 
 # def coroutine(g):
-#     @functools.wraps(g)
+#     """Декоратор автоматизирует инициализацию генератора, чтобы не делать вручную с помощью next()"""
+#     @functools.wraps(g) # метаданные оригинальной функции
 #     def wrapper(*args, **kwargs):
-#         gen = g(*args, **kwargs)
+#         gen = g(*args, **kwargs) # init generator
 #         next(gen) 
 #         return gen
 #     return wrapper
 
-# @coroutine
+# @coroutine # используем декоратор для инициализации my_gen
 # def my_gen():
-#     gen = fibonacci_gen()
+#     gen = fibonacci_gen() # другой генератор, для чисел Фибоначчи
 #     n = yield  
 #     while True:
 #         yield [next(gen) for _ in range(n)]
@@ -87,7 +89,7 @@ def my_gen():
     gen = fibonacci_gen()
     n = (yield)  # wait for first value
     while True:
-        yield [next(gen) for _ in range(n)]
+        yield [next(gen) for _ in range(n)] # возвращаем список из n чисел Фибоначчи
         n = (yield)  # wait for the next value
 
 gen = my_gen()
