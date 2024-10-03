@@ -6,9 +6,11 @@ from datetime import datetime
 
 
 class SingletonMeta(type):
+    """Синглтон, который обеспечивает создание только одного экземпляра"""
     _instances = {}
 
     def __call__(cls, *args, **kwargs):
+        """Метод, который создает новый экземпляр класса только если его еще нет."""
         if cls not in cls._instances:
             instance = super().__call__(*args, **kwargs)
             cls._instances[cls] = instance
@@ -83,7 +85,7 @@ class CurrencyManager(metaclass=SingletonMeta):
 def test_invalid_currency():
     manager = CurrencyManager()
     result = manager.get_currencies(['R9999'])
-    time.sleep(1)
+    time.sleep(1) # placeholder for 
     assert result == {'R9999': None}
 
 def test_valid_currency():
