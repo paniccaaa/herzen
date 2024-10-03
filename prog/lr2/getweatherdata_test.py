@@ -42,8 +42,9 @@ exp_params_countries = [
     ("Havana", key, 'CU')
 ]
 
-@pytest.mark.parametrize(inp_params_1, exp_params_countries)
+@pytest.mark.parametrize(inp_params_1, exp_params_countries) # декоратор для параметризации тестов
 def test_countries(city, api_key, expected_country):
-    data = json.loads(get_weather_data(city, api_key=key))
+    data = json.loads(get_weather_data(city, api_key=key)) # json str -> python dict
+    # ожидается что значение country должно совпадать с expected_country
     assert data.get('sys', {}).get('country', 'NoValue') == expected_country, \
         "Error with country code"
