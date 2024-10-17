@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module main</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">main</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:/home/paniccaaa/Desktop/herzen/prog/lr6/main.py">/home/paniccaaa/Desktop/herzen/prog/lr6/main.py</a></td></tr></table>
+    <p></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="xml.etree.ElementTree.html">xml.etree.ElementTree</a><br>
+<a href="csv.html">csv</a><br>
+</td><td class="multicolumn"><a href="io.html">io</a><br>
+<a href="json.html">json</a><br>
+</td><td class="multicolumn"><a href="requests.html">requests</a><br>
+</td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor index-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
+    
+<tr><td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl>
+<dt class="heading-text"><a href="abc.html#ABC">abc.ABC</a>(<a href="builtins.html#object">builtins.object</a>)
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="main.html#Component">Component</a>
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="main.html#CurrenciesList">CurrenciesList</a>
+</dt><dt class="heading-text"><a href="main.html#Decorator">Decorator</a>
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="main.html#ConcreteDecoratorCSV">ConcreteDecoratorCSV</a>
+</dt><dt class="heading-text"><a href="main.html#ConcreteDecoratorJSON">ConcreteDecoratorJSON</a>
+</dt></dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+ <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Component">class <strong>Component</strong></a>(<a href="abc.html#ABC">abc.ABC</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code">Абстрактный&nbsp;класс,&nbsp;представляющий&nbsp;интерфейс&nbsp;компонента&nbsp;для&nbsp;получения&nbsp;данных.<br>
+&nbsp;<br>
+Методы:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Component-get_data">get_data</a>():&nbsp;Возвращает&nbsp;данные&nbsp;о&nbsp;валютах.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt>Method resolution order:</dt>
+<dd><a href="main.html#Component">Component</a></dd>
+<dd><a href="abc.html#ABC">abc.ABC</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Component-get_data"><strong>get_data</strong></a>(self)</dt><dd><span class="code">Возвращает&nbsp;данные&nbsp;в&nbsp;определённом&nbsp;формате.<br>
+&nbsp;<br>
+Возвращаемое&nbsp;значение:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;Данные&nbsp;о&nbsp;валютах&nbsp;в&nbsp;формате&nbsp;словаря.</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__abstractmethods__</strong> = frozenset({'get_data'})</dl>
+
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="ConcreteDecoratorCSV">class <strong>ConcreteDecoratorCSV</strong></a>(<a href="main.html#Decorator">Decorator</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#ConcreteDecoratorCSV">ConcreteDecoratorCSV</a>(component:&nbsp;main.<a href="#Component">Component</a>)<br>
+&nbsp;<br>
+Декоратор,&nbsp;который&nbsp;преобразует&nbsp;данные&nbsp;компонента&nbsp;в&nbsp;CSV-формат.<br>
+&nbsp;<br>
+Методы:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ConcreteDecoratorCSV-get_data">get_data</a>():&nbsp;Возвращает&nbsp;данные&nbsp;в&nbsp;формате&nbsp;CSV.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt>Method resolution order:</dt>
+<dd><a href="main.html#ConcreteDecoratorCSV">ConcreteDecoratorCSV</a></dd>
+<dd><a href="main.html#Decorator">Decorator</a></dd>
+<dd><a href="main.html#Component">Component</a></dd>
+<dd><a href="abc.html#ABC">abc.ABC</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="ConcreteDecoratorCSV-get_data"><strong>get_data</strong></a>(self)</dt><dd><span class="code">Преобразует&nbsp;данные&nbsp;компонента&nbsp;в&nbsp;CSV-формат.<br>
+&nbsp;<br>
+Возвращаемое&nbsp;значение:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;str:&nbsp;Данные&nbsp;в&nbsp;формате&nbsp;CSV.<br>
+&nbsp;<br>
+Исключения:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;TypeError:&nbsp;Выбрасывается,&nbsp;если&nbsp;данные&nbsp;переданы&nbsp;в&nbsp;виде&nbsp;строки&nbsp;(JSON).</span></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__abstractmethods__</strong> = frozenset()</dl>
+
+<hr>
+Methods inherited from <a href="main.html#Decorator">Decorator</a>:<br>
+<dl><dt><a name="ConcreteDecoratorCSV-__init__"><strong>__init__</strong></a>(self, component: main.Component)</dt><dd><span class="code">Инициализирует&nbsp;декоратор&nbsp;с&nbsp;компонентом.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;component&nbsp;(<a href="#Component">Component</a>):&nbsp;Компонент&nbsp;для&nbsp;декорирования.</span></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="main.html#Component">Component</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
+</dl>
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="ConcreteDecoratorJSON">class <strong>ConcreteDecoratorJSON</strong></a>(<a href="main.html#Decorator">Decorator</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#ConcreteDecoratorJSON">ConcreteDecoratorJSON</a>(component:&nbsp;main.<a href="#Component">Component</a>)<br>
+&nbsp;<br>
+Декоратор,&nbsp;который&nbsp;преобразует&nbsp;данные&nbsp;компонента&nbsp;в&nbsp;JSON-формат.<br>
+&nbsp;<br>
+Методы:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ConcreteDecoratorJSON-get_data">get_data</a>():&nbsp;Возвращает&nbsp;данные&nbsp;в&nbsp;формате&nbsp;JSON.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt>Method resolution order:</dt>
+<dd><a href="main.html#ConcreteDecoratorJSON">ConcreteDecoratorJSON</a></dd>
+<dd><a href="main.html#Decorator">Decorator</a></dd>
+<dd><a href="main.html#Component">Component</a></dd>
+<dd><a href="abc.html#ABC">abc.ABC</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="ConcreteDecoratorJSON-get_data"><strong>get_data</strong></a>(self)</dt><dd><span class="code">Преобразует&nbsp;данные&nbsp;компонента&nbsp;в&nbsp;JSON-формат.<br>
+&nbsp;<br>
+Возвращаемое&nbsp;значение:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;str:&nbsp;Данные&nbsp;в&nbsp;формате&nbsp;JSON.</span></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__abstractmethods__</strong> = frozenset()</dl>
+
+<hr>
+Methods inherited from <a href="main.html#Decorator">Decorator</a>:<br>
+<dl><dt><a name="ConcreteDecoratorJSON-__init__"><strong>__init__</strong></a>(self, component: main.Component)</dt><dd><span class="code">Инициализирует&nbsp;декоратор&nbsp;с&nbsp;компонентом.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;component&nbsp;(<a href="#Component">Component</a>):&nbsp;Компонент&nbsp;для&nbsp;декорирования.</span></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="main.html#Component">Component</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
+</dl>
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="CurrenciesList">class <strong>CurrenciesList</strong></a>(<a href="main.html#Component">Component</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code">Базовый&nbsp;компонент,&nbsp;возвращающий&nbsp;данные&nbsp;о&nbsp;валютах&nbsp;с&nbsp;сайта&nbsp;ЦБ&nbsp;РФ.<br>
+&nbsp;<br>
+Методы:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#CurrenciesList-get_data">get_data</a>():&nbsp;Возвращает&nbsp;данные&nbsp;о&nbsp;валютах&nbsp;в&nbsp;виде&nbsp;словаря&nbsp;с&nbsp;кодом&nbsp;валюты,&nbsp;именем,&nbsp;значением&nbsp;и&nbsp;номиналом.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt>Method resolution order:</dt>
+<dd><a href="main.html#CurrenciesList">CurrenciesList</a></dd>
+<dd><a href="main.html#Component">Component</a></dd>
+<dd><a href="abc.html#ABC">abc.ABC</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="CurrenciesList-get_data"><strong>get_data</strong></a>(self)</dt><dd><span class="code">Получает&nbsp;данные&nbsp;о&nbsp;валютах&nbsp;с&nbsp;сайта&nbsp;ЦБ&nbsp;РФ.<br>
+&nbsp;<br>
+Возвращаемое&nbsp;значение:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;Словарь&nbsp;с&nbsp;данными&nbsp;о&nbsp;валютах,&nbsp;где&nbsp;ключ&nbsp;—&nbsp;это&nbsp;код&nbsp;валюты,&nbsp;а&nbsp;значение&nbsp;—&nbsp;информация&nbsp;о&nbsp;валюте&nbsp;(имя,&nbsp;значение,&nbsp;номинал).</span></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__abstractmethods__</strong> = frozenset()</dl>
+
+<hr>
+Data descriptors inherited from <a href="main.html#Component">Component</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
+</dl>
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Decorator">class <strong>Decorator</strong></a>(<a href="main.html#Component">Component</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#Decorator">Decorator</a>(component:&nbsp;main.<a href="#Component">Component</a>)<br>
+&nbsp;<br>
+Абстрактный&nbsp;декоратор&nbsp;для&nbsp;компонентов.<br>
+&nbsp;<br>
+Атрибуты:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;_component&nbsp;(<a href="#Component">Component</a>):&nbsp;Компонент,&nbsp;который&nbsp;будет&nbsp;декорирован.<br>
+&nbsp;<br>
+Методы:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Decorator-get_data">get_data</a>():&nbsp;Получает&nbsp;данные&nbsp;компонента.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt>Method resolution order:</dt>
+<dd><a href="main.html#Decorator">Decorator</a></dd>
+<dd><a href="main.html#Component">Component</a></dd>
+<dd><a href="abc.html#ABC">abc.ABC</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Decorator-__init__"><strong>__init__</strong></a>(self, component: main.Component)</dt><dd><span class="code">Инициализирует&nbsp;декоратор&nbsp;с&nbsp;компонентом.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;component&nbsp;(<a href="#Component">Component</a>):&nbsp;Компонент&nbsp;для&nbsp;декорирования.</span></dd></dl>
+
+<dl><dt><a name="Decorator-get_data"><strong>get_data</strong></a>(self)</dt><dd><span class="code">Вызывает&nbsp;метод&nbsp;get_data&nbsp;декорируемого&nbsp;компонента.<br>
+&nbsp;<br>
+Возвращаемое&nbsp;значение:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;Данные,&nbsp;возвращаемые&nbsp;декорируемым&nbsp;компонентом.</span></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__abstractmethods__</strong> = frozenset({'get_data'})</dl>
+
+<hr>
+Data descriptors inherited from <a href="main.html#Component">Component</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>

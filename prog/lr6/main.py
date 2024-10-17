@@ -7,13 +7,33 @@ from abc import ABC, abstractmethod
 
 # Абстрактный интерфейс компонента
 class Component(ABC):
+    """Абстрактный класс, представляющий интерфейс компонента для получения данных.
+
+    Методы:
+        get_data(): Возвращает данные о валютах.
+    """
     @abstractmethod
     def get_data(self):
+        """Возвращает данные в определённом формате.
+
+        Возвращаемое значение:
+            dict: Данные о валютах в формате словаря.
+        """
         pass
 
 # Базовый компонент - возвращает данные о валютах в формате словаря
 class CurrenciesList(Component):
+    """Базовый компонент, возвращающий данные о валютах с сайта ЦБ РФ.
+
+    Методы:
+        get_data(): Возвращает данные о валютах в виде словаря с кодом валюты, именем, значением и номиналом.
+    """
     def get_data(self):
+        """Получает данные о валютах с сайта ЦБ РФ.
+
+        Возвращаемое значение:
+            dict: Словарь с данными о валютах, где ключ — это код валюты, а значение — информация о валюте (имя, значение, номинал).
+        """
         response = requests.get('http://www.cbr.ru/scripts/XML_daily.asp')
         root = ET.fromstring(response.content)
         currencies = {}
@@ -26,22 +46,63 @@ class CurrenciesList(Component):
         return currencies
 
 # Базовый декоратор, который будет изменять компонент
-class Decorator(Component): # передаем наш интерфейс с 1 методом
+class Decorator(Component):
+    """Абстрактный декоратор для компонентов.
+
+    Атрибуты:
+        _component (Component): Компонент, который будет декорирован.
+
+    Методы:
+        get_data(): Получает данные компонента.
+    """
     def __init__(self, component: Component):
+        """Инициализирует декоратор с компонентом.
+
+        Args:
+            component (Component): Компонент для декорирования.
+        """
         self._component = component
 
     @abstractmethod
     def get_data(self):
+        """Вызывает метод get_data декорируемого компонента.
+
+        Возвращаемое значение:
+            dict: Данные, возвращаемые декорируемым компонентом.
+        """
         return self._component.get_data()
 
 # Декоратор для преобразования данных в JSON (расширяем функционал )
 class ConcreteDecoratorJSON(Decorator):
+    """Декоратор, который преобразует данные компонента в JSON-формат.
+
+    Методы:
+        get_data(): Возвращает данные в формате JSON.
+    """
     def get_data(self):
+        """Преобразует данные компонента в JSON-формат.
+
+        Возвращаемое значение:
+            str: Данные в формате JSON.
+        """
         data = self._component.get_data()
         return json.dumps(data, indent=4, ensure_ascii=False)
     
 class ConcreteDecoratorCSV(Decorator):
+    """Декоратор, который преобразует данные компонента в CSV-формат.
+
+    Методы:
+        get_data(): Возвращает данные в формате CSV.
+    """
     def get_data(self):
+        """Преобразует данные компонента в CSV-формат.
+
+        Возвращаемое значение:
+            str: Данные в формате CSV.
+
+        Исключения:
+            TypeError: Выбрасывается, если данные переданы в виде строки (JSON).
+        """
         data = self._component.get_data()
 
         # Проверка на то, что данные — это словарь
@@ -64,14 +125,14 @@ class ConcreteDecoratorCSV(Decorator):
 
 
 if __name__ == "__main__":
-    currencies = CurrenciesList() # является декорируемым
+    currencies = CurrenciesList()  # является декорируемым
 
     # Декоратор JSON
-    json_decorator = ConcreteDecoratorJSON(currencies) # передаем currencies так как он удовлетворяет интерфейсу Components
+    json_decorator = ConcreteDecoratorJSON(currencies)  # передаем currencies, так как он удовлетворяет интерфейсу Component
     print("JSON format:")
     print(json_decorator.get_data())
 
     # Декоратор CSV
-    csv_decorator = ConcreteDecoratorCSV(currencies) # аналогично 
+    csv_decorator = ConcreteDecoratorCSV(currencies)  # аналогично
     print("\nCSV format:")
     print(csv_decorator.get_data())
