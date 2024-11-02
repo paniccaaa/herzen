@@ -35,15 +35,25 @@ print(list(fib_iterator))  # [0, 1, 2, 3, 5, 8, 1]
 
 # Задание 3 - Реализация с помощью itertools
 
+import itertools
+
+def fib_gen():
+    """Генерирует бесконечную последовательность чисел Фибоначчи."""
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a + b
+
 def fib_iter(iterable):
     """Функция для фильтрации чисел Фибоначчи в переданном iterable."""
     max_val = max(iterable)
-    fib_sequence = fib(max_val)
+    # Генерируем бесконечную последовательность Фибоначчи и обрезаем ее до max_val
+    fib_sequence = itertools.takewhile(lambda x: x <= max_val, fib_gen())
     return [x for x in iterable if x in fib_sequence]
 
 # Пример использования:
 l = list(range(14))
-print(fib_iter(l))  # [0, 1, 1, 2, 3, 5, 8, 13]
+print("ya tyt", fib_iter(l))  
 
 # Реализация через декоратор
 
