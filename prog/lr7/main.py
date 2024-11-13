@@ -151,3 +151,6 @@ async def shutdown_event():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)  # Запуск приложения на указанном хосте и порту
+
+
+# TODO: вынести логику https://refactoring.guru/ru/design-patterns/observer/python/example
