@@ -1,3 +1,4 @@
-from rootserver.myremotemodule import myfoo
+# Этот файл инициализирует пакет
+from .myremotemodule import myfoo
 
-print("я в __init__")
+print("Пакет myremotemodule инициализирован")
