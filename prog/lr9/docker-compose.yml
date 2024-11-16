@@ -1,4 +1,19 @@
+version: "3.8"
+
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lr9-app
+    environment:
+      - FLASK_ENV=production
+      - DATABASE_URL=postgresql://user:password@postgres:5432/bonus_program_db?sslmode=disable
+    depends_on:
+      - postgres
+    ports:
+      - "5000:5000"
+
   postgres:
     image: postgres:latest
     container_name: prog-lr9
@@ -10,7 +25,6 @@ services:
       - "5438:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
 
 volumes:
   postgres_data:
