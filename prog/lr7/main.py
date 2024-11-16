@@ -10,19 +10,50 @@ from fastapi.middleware.cors import CORSMiddleware
 import asyncio
 import random
 
-# Абстрактный интерфейс компонента
-class Component(ABC):
+# Абстрактный интерфейс для Наблюдателей
+class Observer(ABC):
     @abstractmethod
-    def get_data(self):
-        """Абстрактный метод для получения данных о курсах валют."""
+    async def update(self, message: str):
+        """Метод для обновления данных у наблюдателя."""
         pass
 
-class CurrenciesList(Component):
+# Абстрактный интерфейс для Субъектов
+class Subject(ABC):
+    @abstractmethod
+    def subscribe(self, observer: Observer):
+        """Добавляет наблюдателя в список подписчиков."""
+        pass
+
+    @abstractmethod
+    def unsubscribe(self, observer: Observer):
+        """Удаляет наблюдателя из списка подписчиков."""
+        pass
+
+    @abstractmethod
+    def notify(self, message: str):
+        """Уведомляет всех наблюдателей о событии."""
+        pass
+
+# Класс для получения данных о курсах валют
+class CurrenciesList(Subject):
+    def __init__(self):
+        self._observers = []  # Список наблюдателей (клиентов)
+    
+    def subscribe(self, observer: Observer):
+        """Подписка на обновления."""
+        self._observers.append(observer)
+
+    def unsubscribe(self, observer: Observer):
+        """Отписка от обновлений."""
+        self._observers.remove(observer)
+
+    async def notify(self, message: str):
+        """Оповещение всех наблюдателей."""
+        for observer in self._observers:
+            await observer.update(message)  
+
     def get_data(self):
-        """Запрашивает данные о курсах валют с API Центробанка России.
-        
-        Возвращает словарь с курсами валют или пустой словарь в случае ошибки.
-        """
+        """Запрашивает данные о курсах валют с API Центробанка России."""
         try:
             response = requests.get('http://www.cbr.ru/scripts/XML_daily.asp')
             response.raise_for_status()  # Проверка на ошибки в HTTP-запросе
@@ -39,30 +70,21 @@ class CurrenciesList(Component):
             print(f"Ошибка при запросе курсов валют: {e}")
             return {}  # Возврат пустого словаря в случае ошибки
 
-class Decorator(Component):
-    def __init__(self, component: Component):
-        """Инициализирует декоратор с компонентом."""
-        self._component = component
+    async def update_data(self):
+        """Периодическое обновление данных и уведомление подписчиков."""
+        currencies = self.get_data()
+        if currencies:
+            json_data = json.dumps(currencies)
+            await self.notify(json_data)  # Уведомляем всех подписчиков о новых данных
 
-class ConcreteDecoratorJSON(Decorator):
-    def get_data(self):
-        """Возвращает данные о курсах валют в формате JSON."""
-        data = self._component.get_data() 
-        return json.dumps(data, indent=4, ensure_ascii=False)  
-
-class ConcreteDecoratorCSV(Decorator):
-    def get_data(self):
-        """Возвращает данные о курсах валют в формате CSV."""
-        data = self._component.get_data() 
-        if isinstance(data, str):
-            raise TypeError("Cannot apply CSV formatting to JSON string.")
-        
-        output = io.StringIO() 
-        writer = csv.writer(output)
-        writer.writerow(['CharCode', 'Name', 'Value', 'Nominal'])  
-        for charcode, info in data.items():
-            writer.writerow([charcode, info['name'], info['value'], info['nominal']])
-        return output.getvalue()  # Возврат CSV-строки
+# (Наблюдатели)
+class WebSocketClient(Observer):
+    def __init__(self, websocket: WebSocket):
+        self.websocket = websocket
+    
+    async def update(self, message: str):
+        """Метод обновления данных для WebSocket-клиента."""
+        await self.websocket.send_text(message)
 
 # Настройка FastAPI приложения
 app = FastAPI()
@@ -104,53 +126,40 @@ async def root():
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
-    """Обрабатывает WebSocket-соединения от клиентов.
-    
-    Принимает клиента и добавляет его в список подключённых клиентов.
-    """
+    """Обрабатывает WebSocket-соединения от клиентов."""
     await websocket.accept()  # Принять WebSocket-соединение
-    clients.append(websocket)  # Добавить клиента в список
+    client = WebSocketClient(websocket)  # Создаем клиента-обсервер
+    clients.append(client)  # Подписываем клиента на обновления
+
+    # Подписываем клиента на обновления данных
+    currency_data.subscribe(client)
+
     try:
         while True:
             await websocket.receive_text()  # Ожидание сообщений от клиента
     except Exception:
-        clients.remove(websocket)  # Удаление клиента в случае ошибки
-
-async def notify_clients(message):
-    """Уведомляет всех подключённых клиентов о новых данных."""
-    for client in clients:
-        await client.send_text(message)  # Отправка сообщения каждому клиенту
+        clients.remove(client)  # Удаление клиента в случае ошибки
+        currency_data.unsubscribe(client)  # Отписка от обновлений
 
 async def currency_updater():
     """Периодически обновляет курсы валют и уведомляет клиентов."""
-    currencies = CurrenciesList()  # Создание объекта для получения курсов валют
     while True:
-        data = currencies.get_data()  # Запрос курсов валют
-        if data:  # Проверка на наличие данных
-            json_data = json.dumps(data) 
-            await notify_clients(json_data)  # Уведомление клиентов
+        await currency_data.update_data()  # Обновляем курсы валют и уведомляем подписчиков
         await asyncio.sleep(20)  # Запрос каждые 20 секунд
 
 @app.on_event("startup")
 async def startup_event():
-    """Событие, запускаемое при старте приложения.
-    
-    Запускает задачу обновления курсов валют.
-    """
-    task = asyncio.create_task(currency_updater())
+    """Запускаем задачу обновления курсов валют при старте приложения."""
+    global currency_data
+    currency_data = CurrenciesList()  # Создаем объект для получения курсов валют
+    task = asyncio.create_task(currency_updater())  # Запускаем задачу обновления данных
 
 @app.on_event("shutdown")
 async def shutdown_event():
-    """Событие, запускаемое при остановке приложения.
-    
-    Закрывает все WebSocket-соединения.
-    """
+    """Закрываем все WebSocket-соединения при остановке приложения."""
     for client in clients:
-        await client.close()  # Закрытие WebSocket-соединений
+        await client.websocket.close()  # Закрытие WebSocket-соединений
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)  # Запуск приложения на указанном хосте и порту
-
-
-# TODO: вынести логику https://refactoring.guru/ru/design-patterns/observer/python/example
+    uvicorn.run(app, host="127.0.0.1", port=8000)  # Запуск приложения
