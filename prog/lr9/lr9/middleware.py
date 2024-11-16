@@ -1,7 +1,6 @@
 import jwt
 from flask import request, jsonify
 from functools import wraps
-from settings import SECRET_KEY, ALGORITHM
 
 def token_required(f):
     @wraps(f)
@@ -16,7 +15,7 @@ def token_required(f):
             return jsonify({"message": "Token is missing!"}), 401
 
         try:
-            data = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+            data = jwt.decode(token, 'your_secret_key', algorithms='HS256')
             current_user_id = data['user_id']
         except jwt.ExpiredSignatureError:
             return jsonify({"message": "Token has expired!"}), 401

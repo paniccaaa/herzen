@@ -1,5 +1,4 @@
 import os
-from datetime import timedelta
 
 # Подключение к базе данных PostgreSQL
 SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'postgresql://user:password@localhost:5438/bonus_program_db?sslmode=disable')  # URI для подключения
