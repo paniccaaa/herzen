@@ -15,13 +15,19 @@ class Ship:
         self.rect = self.image.get_rect()
         self.screen_rect = ai_game.screen.get_rect()
 
+        # Изначально расположение корабля внизу по центру
         self.rect.midbottom = self.screen_rect.midbottom
         self.x = float(self.rect.x)
 
+        # Флаги движения
         self.moving_right = False
         self.moving_left = False
 
+        # Количество жизней корабля
+        self.lives = 3  # Начинаем с 3 жизнями
+
     def update(self):
+        """Обновляет позицию корабля в зависимости от флагов движения."""
         if self.moving_right and self.rect.right < self.screen_rect.right:
             self.x += self.settings.ship_speed
         if self.moving_left and self.rect.left > 0:
@@ -29,4 +35,16 @@ class Ship:
         self.rect.x = self.x
 
     def blitme(self):
+        """Отображает корабль на экране."""
         self.screen.blit(self.image, self.rect)
+
+    def hit(self):
+        """Обрабатывает столкновение с инопланетянином."""
+        self.lives -= 1  # Уменьшаем количество жизней
+        if self.lives <= 0:
+            return True  # Возвращаем True, если жизни закончились
+        else:
+            # Возвращаем корабль в начальное положение после столкновения
+            self.rect.midbottom = self.screen_rect.midbottom
+            self.x = float(self.rect.x)
+            return False

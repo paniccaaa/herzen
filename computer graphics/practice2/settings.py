@@ -1,3 +1,5 @@
+# settings.py
+
 class Settings:
     def __init__(self):
         # Параметры экрана
@@ -16,19 +18,25 @@ class Settings:
         self.bullets_allowed = 3
 
         # Параметры инопланетян
-        self.alien_speed = 0.2
-        self.fleet_drop_speed = 5
+        self.alien_speed = 10
+        self.fleet_drop_speed = 3
         self.fleet_direction = 1
 
         # Параметры увеличения сложности
         self.speedup_scale = 1.1
+        self.level = 1
         self.initialize_dynamic_settings()
 
     def initialize_dynamic_settings(self):
         """Настройки, которые изменяются в ходе игры"""
-        self.alien_speed = 0.1
+        self.alien_speed = 1
         self.fleet_drop_speed = 5
+        self.bullet_speed = 1.0
 
     def increase_speed(self):
-        """Увеличение скорости для новой волны"""
+        """Увеличение сложности игры"""
         self.alien_speed *= self.speedup_scale
+        self.fleet_drop_speed *= self.speedup_scale
+        self.bullet_speed *= self.speedup_scale
+        self.bullets_allowed += 1
+        self.level += 1

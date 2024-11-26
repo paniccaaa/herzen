@@ -1,3 +1,5 @@
+# alien.py
+
 import pygame
 from pygame.sprite import Sprite
 
@@ -7,8 +9,8 @@ class Alien(Sprite):
         self.screen = ai_game.screen
         self.settings = ai_game.settings
         
-        # Загрузка и масштабирование изображения инопланетянина с прозрачным фоном (PNG)
-        self.image = pygame.image.load('alien.bmp').convert_alpha() 
+        # Загрузка и масштабирование изображения инопланетянина
+        self.image = pygame.image.load('alien.png').convert_alpha() 
         self.image = pygame.transform.scale(self.image, (50, 50))  
         
         self.rect = self.image.get_rect()
