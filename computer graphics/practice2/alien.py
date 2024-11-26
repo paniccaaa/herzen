@@ -10,7 +10,7 @@ class Alien(Sprite):
         self.settings = ai_game.settings
         
         # Загрузка и масштабирование изображения инопланетянина
-        self.image = pygame.image.load('alien.png').convert_alpha() 
+        self.image = pygame.image.load('resources/alien.png').convert_alpha() 
         self.image = pygame.transform.scale(self.image, (50, 50))  
         
         self.rect = self.image.get_rect()

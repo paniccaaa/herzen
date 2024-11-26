@@ -88,5 +88,12 @@
   - `ship.png` для корабля.
   - `alien.png` для инопланетян.
 
+## Бинарник для linux  
+build_linux.sh:
+```sh
+chmod +x build_linux.sh
+./build_linux.sh
+```
+
 Пример работы:   
-![alt text](image.png)
+![alt text](resources/image.png)

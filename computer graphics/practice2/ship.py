@@ -6,7 +6,7 @@ class Ship:
         self.settings = ai_game.settings
         
         # Загрузка и масштабирование изображения корабля
-        self.image = pygame.image.load('ship.bmp')
+        self.image = pygame.image.load('resources/ship.bmp')
         self.image = pygame.transform.scale(self.image, (50, 50))  # Масштабируем до 50x50
         
         # Устанавливаем белый цвет как прозрачный
