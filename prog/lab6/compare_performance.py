@@ -19,7 +19,7 @@ print("Компиляция Cython модуля...")
 subprocess.run(["python", "setup.py", "build_ext", "--inplace"], check=True)
 
 # Импортируем Cython модуль
-import cy_factorization
+import cy_factorization # type: ignore
 from main import fermat_factorization as py_fermat_factorization, is_perfect_square
 
 # Тестовые числа (уменьшенный список, содержащий только небольшие числа)
