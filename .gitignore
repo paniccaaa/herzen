@@ -1,2 +1,4 @@
 venv
 .venv
+.DS_Store*
+math basic deep learning/lab4/bus
