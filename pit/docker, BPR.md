@@ -16,3 +16,6 @@
 
 5) Проверка работоспособности POST запроса
 ![alt text](image-28.png)
+
+DockerHub ссылка:
+https://hub.docker.com/repository/docker/paniccaaa/go-echo-app/general
