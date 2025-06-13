@@ -1,6 +1,8 @@
 Работу выполнил:
 Адаменко Семён, ИВТ 2.1
 
+Скринкаст: https://drive.google.com/file/d/1b8NvccdTI-6H10XwqBQVeNol7w5CPvtT/view?usp=drive_link
+
 Результаты работы:
 - https://adamenkoss.ru/go-ping-pong-2/
 
