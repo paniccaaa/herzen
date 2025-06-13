@@ -1,3 +1,13 @@
+Работу выполнил:
+Адаменко Семён, ИВТ 2.1
+
+Результаты работы:
+- https://adamenkoss.ru/go-ping-pong-2/
+
+- https://adamenkoss.ru/go-ping-pong-1/
+
+
+
 1) Написание пинг-понг приложения 
 ![alt text](image-36.png)
 
