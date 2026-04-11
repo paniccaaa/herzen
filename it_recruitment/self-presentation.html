@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Адаменко Семён — Самопрезентация</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    overflow: hidden;
+  }
+
+  .deck { width: 100vw; height: 100vh; position: relative; }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .slide.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  /* Slide backgrounds */
+  .slide-1  { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%); }
+  .slide-2  { background: linear-gradient(135deg, #0f172a 0%, #1a2a3a 100%); }
+  .slide-3  { background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); }
+  .slide-4  { background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); }
+  .slide-5  { background: linear-gradient(135deg, #0f172a 0%, #1a2a3a 100%); }
+  .slide-6  { background: linear-gradient(135deg, #0d1b2a 0%, #1b2838 100%); }
+  .slide-7  { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%); }
+  .slide-8  { background: linear-gradient(135deg, #0f172a 0%, #1a2a3a 100%); }
+
+  /* Accent color */
+  .accent { color: #38bdf8; }
+  .accent2 { color: #34d399; }
+
+  /* Slide 1 — Title */
+  .title-name {
+    font-size: 3.6rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+  .title-role {
+    font-size: 1.6rem;
+    color: #38bdf8;
+    font-weight: 500;
+    margin-bottom: 32px;
+  }
+  .contact-row {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 0.95rem;
+    color: #94a3b8;
+  }
+  .contact-row a { color: #38bdf8; text-decoration: none; }
+
+  .tag-row {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    justify-content: center; margin-top: 28px;
+  }
+  .tag {
+    background: rgba(56,189,248,0.12);
+    border: 1px solid rgba(56,189,248,0.3);
+    color: #38bdf8;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  /* Section title */
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 36px;
+    text-align: center;
+  }
+  .section-title span { color: #38bdf8; }
+
+  /* About */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 900px;
+    width: 100%;
+  }
+  .about-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .about-card h3 { color: #38bdf8; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .about-card p, .about-card li { font-size: 0.95rem; color: #cbd5e1; line-height: 1.7; }
+  .about-card ul { list-style: none; padding: 0; }
+  .about-card li::before { content: "→ "; color: #38bdf8; }
+
+  /* Experience */
+  .exp-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-left: 4px solid #38bdf8;
+    border-radius: 12px;
+    padding: 28px 32px;
+    max-width: 900px;
+    width: 100%;
+  }
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
+  .exp-company { font-size: 1.5rem; font-weight: 700; }
+  .exp-period { color: #94a3b8; font-size: 0.9rem; }
+  .exp-role { color: #38bdf8; font-size: 1.05rem; font-weight: 600; margin-bottom: 16px; }
+  .exp-list { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .exp-list li { font-size: 0.88rem; color: #cbd5e1; padding-left: 16px; position: relative; line-height: 1.5; }
+  .exp-list li::before { content: "▸"; color: #34d399; position: absolute; left: 0; }
+  .exp-stack { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .stack-badge {
+    background: rgba(52,211,153,0.1);
+    border: 1px solid rgba(52,211,153,0.3);
+    color: #34d399;
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    font-weight: 500;
+  }
+
+  /* Tech stack */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 900px;
+    width: 100%;
+  }
+  .stack-group {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .stack-group h3 { color: #38bdf8; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .stack-group p { color: #cbd5e1; font-size: 0.88rem; line-height: 1.8; }
+
+  /* Portfolio */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 900px;
+    width: 100%;
+  }
+  .portfolio-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .portfolio-card h3 { color: #38bdf8; font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+  .portfolio-card p { color: #94a3b8; font-size: 0.85rem; line-height: 1.6; margin-bottom: 12px; }
+  .portfolio-card a {
+    color: #34d399;
+    font-size: 0.85rem;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(52,211,153,0.3);
+    padding-bottom: 2px;
+  }
+  .portfolio-card a:hover { border-color: #34d399; }
+
+  /* Qualities */
+  .qualities-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    max-width: 1000px;
+    width: 100%;
+  }
+  .quality-item {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+  }
+  .quality-bar-wrap { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; margin: 10px 0 8px; }
+  .quality-bar { height: 4px; border-radius: 2px; background: linear-gradient(90deg, #38bdf8, #34d399); }
+  .quality-label { font-size: 0.8rem; color: #cbd5e1; }
+  .quality-score { font-size: 1.1rem; font-weight: 700; color: #38bdf8; margin-bottom: 4px; }
+
+  /* Final slide */
+  .final-center { text-align: center; }
+  .final-center h1 { font-size: 2.8rem; font-weight: 700; margin-bottom: 16px; }
+  .final-center p { font-size: 1.15rem; color: #94a3b8; max-width: 600px; margin: 0 auto 32px; line-height: 1.7; }
+  .final-contacts { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+  .final-contacts a {
+    color: #38bdf8; font-size: 1rem; text-decoration: none;
+    border-bottom: 1px solid rgba(56,189,248,0.3); padding-bottom: 2px;
+  }
+
+  /* Navigation */
+  .nav {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 40px;
+    padding: 12px 28px;
+    z-index: 100;
+  }
+  .nav button {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 8px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav button:hover { color: #38bdf8; background: rgba(56,189,248,0.1); }
+  .nav-counter { color: #64748b; font-size: 0.85rem; min-width: 40px; text-align: center; }
+
+  /* Dots */
+  .dots {
+    position: fixed;
+    right: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 100;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .dot.active { background: #38bdf8; transform: scale(1.4); }
+
+  /* Slide number label */
+  .slide-label {
+    position: fixed;
+    top: 28px;
+    right: 50px;
+    color: #334155;
+    font-size: 0.8rem;
+    z-index: 100;
+  }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- Slide 1: Title -->
+  <div class="slide slide-1 active">
+    <p style="color:#38bdf8;font-size:0.85rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;">Самопрезентация · 2025</p>
+    <h1 class="title-name">Адаменко <span class="accent">Семён</span></h1>
+    <p class="title-role">Golang Backend Developer</p>
+    <div class="tag-row">
+      <span class="tag">3+ года опыта</span>
+      <span class="tag">Санкт-Петербург</span>
+      <span class="tag">Remote-friendly</span>
+      <span class="tag">English B2</span>
+    </div>
+    <div class="contact-row" style="margin-top:36px;">
+      <span>📧 <a href="mailto:semaadamenko13@gmail.com">semaadamenko13@gmail.com</a></span>
+      <span>📱 +7 (964) 391-75-35</span>
+      <span>✈️ <a href="https://t.me/semaadamenko" target="_blank">t.me/semaadamenko</a></span>
+    </div>
+  </div>
+
+  <!-- Slide 2: About -->
+  <div class="slide slide-2">
+    <p class="section-title">Обо <span>мне</span></p>
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>Кто я</h3>
+        <p>Backend-разработчик с опытом в высоконагруженных системах. Специализируюсь на Go-сервисах, событийной архитектуре и микросервисах. Учусь на 4 курсе РГПУ им. Герцена по направлению «Технологии разработки ПО».</p>
+      </div>
+      <div class="about-card">
+        <h3>Профессиональная цель</h3>
+        <p>Развиваться как fullstack-разработчик и техлид в продуктовой IT-компании, создавать высоконагруженные распределённые системы. Интересны задачи, связанные с производительностью, архитектурой и менторством.</p>
+      </div>
+      <div class="about-card">
+        <h3>Ключевые навыки</h3>
+        <ul>
+          <li>Golang — основной язык (3+ лет)</li>
+          <li>Distributed systems, Kafka, gRPC</li>
+          <li>PostgreSQL, Redis, ClickHouse</li>
+          <li>Docker, Kubernetes, CI/CD</li>
+          <li>Prometheus, Grafana, ELK</li>
+        </ul>
+      </div>
+      <div class="about-card">
+        <h3>Soft skills</h3>
+        <ul>
+          <li>Менторство и онбординг</li>
+          <li>Code review</li>
+          <li>Командная разработка</li>
+          <li>Техническое интервью</li>
+          <li>Самообучение и инициатива</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3: Experience 1 -->
+  <div class="slide slide-3">
+    <p class="section-title">Опыт работы <span>· 1/2</span></p>
+    <div class="exp-card">
+      <div class="exp-header">
+        <div>
+          <div class="exp-company">ГрузовичкоФ</div>
+          <div class="exp-role">Golang Developer</div>
+        </div>
+        <div class="exp-period">Июнь 2023 — Февраль 2025 · 1 г. 9 мес.</div>
+      </div>
+      <ul class="exp-list">
+        <li>Сервис управления заказами: тарифный расчёт, учёт грузов, биллинг</li>
+        <li>Кэширование геолокации транспорта (Redis) — повторное использование маршрутов</li>
+        <li>API Gateway с OTP-авторизацией через SMS-коды</li>
+        <li>Событийная архитектура на Kafka — обработка пиковых нагрузок</li>
+        <li>CI/CD в GitLab: линтеры, автотесты, сокращение времени релизов</li>
+        <li>Менторство: код-ревью, собеседования, онбординг новых разработчиков</li>
+      </ul>
+      <div class="exp-stack">
+        <span class="stack-badge">Go</span>
+        <span class="stack-badge">PostgreSQL</span>
+        <span class="stack-badge">Kafka</span>
+        <span class="stack-badge">Redis</span>
+        <span class="stack-badge">gRPC</span>
+        <span class="stack-badge">Protobuf</span>
+        <span class="stack-badge">Docker</span>
+        <span class="stack-badge">k8s</span>
+        <span class="stack-badge">GitLab CI/CD</span>
+        <span class="stack-badge">Prometheus</span>
+        <span class="stack-badge">Grafana</span>
+        <span class="stack-badge">ClickHouse</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4: Experience 2 -->
+  <div class="slide slide-4">
+    <p class="section-title">Опыт работы <span>· 2/2</span></p>
+    <div class="exp-card">
+      <div class="exp-header">
+        <div>
+          <div class="exp-company">Grow Food</div>
+          <div class="exp-role">Golang Developer</div>
+        </div>
+        <div class="exp-period">Декабрь 2021 — Май 2023 · 1 г. 6 мес.</div>
+      </div>
+      <ul class="exp-list">
+        <li>Сервис рационов питания: категории, аллергены, спецпредложения</li>
+        <li>Управление заказами: связь с учётом склада, проверка ингредиентов</li>
+        <li>Автоматическое формирование меню по наличию ингредиентов</li>
+        <li>Docker + Kubernetes (Helm) — горизонтальное масштабирование</li>
+        <li>Prometheus + Grafana + ELK — мониторинг и диагностика</li>
+        <li>Интеграционные тесты, код-ревью, менторство коллег</li>
+      </ul>
+      <div class="exp-stack">
+        <span class="stack-badge">Go</span>
+        <span class="stack-badge">PostgreSQL</span>
+        <span class="stack-badge">REST</span>
+        <span class="stack-badge">Docker</span>
+        <span class="stack-badge">k8s</span>
+        <span class="stack-badge">Redis</span>
+        <span class="stack-badge">Prometheus</span>
+        <span class="stack-badge">Grafana</span>
+        <span class="stack-badge">ELK</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5: Tech Stack -->
+  <div class="slide slide-5">
+    <p class="section-title">Технический <span>стек</span></p>
+    <div class="stack-grid">
+      <div class="stack-group">
+        <h3>Языки</h3>
+        <p>Go · Python · SQL · Bash</p>
+      </div>
+      <div class="stack-group">
+        <h3>Базы данных</h3>
+        <p>PostgreSQL · MySQL · MongoDB · Redis · ClickHouse</p>
+      </div>
+      <div class="stack-group">
+        <h3>Очереди и стриминг</h3>
+        <p>Apache Kafka · RabbitMQ</p>
+      </div>
+      <div class="stack-group">
+        <h3>Протоколы и API</h3>
+        <p>REST · gRPC · Protobuf</p>
+      </div>
+      <div class="stack-group">
+        <h3>Инфраструктура</h3>
+        <p>Docker · Kubernetes · Helm · GitLab CI/CD · Linux</p>
+      </div>
+      <div class="stack-group">
+        <h3>Мониторинг и тесты</h3>
+        <p>Prometheus · Grafana · ELK · Testify</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 6: Portfolio / Achievements -->
+  <div class="slide slide-6">
+    <p class="section-title">Портфолио и <span>достижения</span></p>
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <h3>🚚 Сервис заказов · ГрузовичкоФ</h3>
+        <p>Полный цикл: тарифный расчёт, учёт по типу/весу груза, интеграция с биллингом. Событийная обработка через Kafka в условиях пиковых нагрузок.</p>
+        <a href="https://gruzovichkof.ru" target="_blank">gruzovichkof.ru ↗</a>
+      </div>
+      <div class="portfolio-card">
+        <h3>🥗 Сервис рационов питания · Grow Food</h3>
+        <p>Система категорий (диеты, аллергены), автогенерация меню, горизонтальное масштабирование в k8s, полный мониторинг через Prometheus + ELK.</p>
+        <a href="https://growfood.pro" target="_blank">growfood.pro ↗</a>
+      </div>
+      <div class="portfolio-card">
+        <h3>🔐 API Gateway с OTP</h3>
+        <p>Защита критических эндпоинтов через SMS-авторизацию. Гарантия доставки OTP-кодов, логирование попыток доступа.</p>
+        <a href="https://github.com/paniccaaa" target="_blank">github.com/paniccaaa ↗</a>
+      </div>
+      <div class="portfolio-card">
+        <h3>⚙️ CI/CD · GitLab Pipelines</h3>
+        <p>Настройка пайплайнов с линтерами (golangci-lint), юнит- и интеграционными тестами, автодеплоем. Сокращение времени релизов и рост стабильности.</p>
+        <a href="https://github.com/paniccaaa" target="_blank">github.com/paniccaaa ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 7: Qualities -->
+  <div class="slide slide-7">
+    <p class="section-title">Личные <span>качества</span></p>
+    <div class="qualities-grid">
+      <div class="quality-item">
+        <div class="quality-score">850</div>
+        <div class="quality-bar-wrap"><div class="quality-bar" style="width:85%"></div></div>
+        <div class="quality-label">Аналит. мышление</div>
+      </div>
+      <div class="quality-item">
+        <div class="quality-score">830</div>
+        <div class="quality-bar-wrap"><div class="quality-bar" style="width:83%"></div></div>
+        <div class="quality-label">Обучаемость</div>
+      </div>
+      <div class="quality-item">
+        <div class="quality-score">800</div>
+        <div class="quality-bar-wrap"><div class="quality-bar" style="width:80%"></div></div>
+        <div class="quality-label">Упорство</div>
+      </div>
+      <div class="quality-item">
+        <div class="quality-score">780</div>
+        <div class="quality-bar-wrap"><div class="quality-bar" style="width:78%"></div></div>
+        <div class="quality-label">Алгоритм. подход</div>
+      </div>
+      <div class="quality-item">
+        <div class="quality-score">720</div>
+        <div class="quality-bar-wrap"><div class="quality-bar" style="width:72%"></div></div>
+        <div class="quality-label">Ответственность</div>
+      </div>
+      <div class="quality-item">
+        <div class="quality-score">700</div>
+        <div class="quality-bar-wrap"><div class="quality-bar" style="width:70%"></div></div>
+        <div class="quality-label">Решение задач</div>
+      </div>
+      <div class="quality-item">
+        <div class="quality-score">600</div>
+        <div class="quality-bar-wrap"><div class="quality-bar" style="width:60%"></div></div>
+        <div class="quality-label">Концентрация</div>
+      </div>
+      <div class="quality-item">
+        <div class="quality-score">520</div>
+        <div class="quality-bar-wrap"><div class="quality-bar" style="width:52%"></div></div>
+        <div class="quality-label">Коммуникаб-сть</div>
+      </div>
+      <div class="quality-item">
+        <div class="quality-score">470</div>
+        <div class="quality-bar-wrap"><div class="quality-bar" style="width:47%"></div></div>
+        <div class="quality-label">Инициативность</div>
+      </div>
+      <div class="quality-item">
+        <div class="quality-score">420</div>
+        <div class="quality-bar-wrap"><div class="quality-bar" style="width:42%"></div></div>
+        <div class="quality-label">Работа в команде</div>
+      </div>
+    </div>
+    <p style="margin-top:20px;color:#475569;font-size:0.8rem;">Шкала: 0–1000 гр. по методике самооценки профессиональных качеств</p>
+  </div>
+
+  <!-- Slide 8: Final -->
+  <div class="slide slide-8">
+    <div class="final-center">
+      <p style="color:#38bdf8;font-size:0.85rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;">Готов к работе</p>
+      <h1 class="title-name">Возьмите меня <span class="accent">в команду</span></h1>
+      <p style="color:#94a3b8;font-size:1.1rem;max-width:600px;margin:16px auto 36px;line-height:1.7;">
+        3+ года коммерческого опыта в highload Go-разработке. Строил и поддерживал
+        распределённые сервисы в двух продуктовых компаниях. Готов развиваться и
+        делиться опытом в сильной команде.
+      </p>
+      <div class="final-contacts">
+        <a href="mailto:semaadamenko13@gmail.com">📧 semaadamenko13@gmail.com</a>
+        <a href="https://t.me/semaadamenko" target="_blank">✈️ t.me/semaadamenko</a>
+        <a href="https://github.com/paniccaaa" target="_blank">💻 github.com/paniccaaa</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Dots -->
+<div class="dots" id="dots"></div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button id="prev" onclick="changeSlide(-1)">‹</button>
+  <span class="nav-counter" id="counter">1 / 8</span>
+  <button id="next" onclick="changeSlide(1)">›</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dotsContainer = document.getElementById('dots');
+  let current = 0;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsContainer.appendChild(d);
+  });
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dotsContainer.children[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dotsContainer.children[current].classList.add('active');
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + slides.length;
+  }
+
+  function changeSlide(dir) { goTo(current + dir); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   changeSlide(-1);
+  });
+</script>
+</body>
+</html>
