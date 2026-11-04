@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "authors": "Spector J. M.",
+    "title": "Conceptualizing the emerging field of smart learning environments",
+    "year": 2014,
+    "focus": "Концепция",
+    "doi": "https://doi.org/10.1186/s40561-014-0002-7"
+  },
+  {
+    "id": 2,
+    "authors": "Hwang G.-J.",
+    "title": "Definition, framework and research issues of smart learning environments - a context-aware ubiquitous learning perspective",
+    "year": 2014,
+    "focus": "Контекст",
+    "doi": "https://doi.org/10.1186/s40561-014-0004-5"
+  },
+  {
+    "id": 3,
+    "authors": "Koper R.",
+    "title": "Conditions for effective smart learning environments",
+    "year": 2014,
+    "focus": "Педагогика",
+    "doi": "https://doi.org/10.1186/s40561-014-0005-4"
+  },
+  {
+    "id": 4,
+    "authors": "Zhu Z.-T., Yu M.-H., Riezebos P.",
+    "title": "A research framework of smart education",
+    "year": 2016,
+    "focus": "Концепция",
+    "doi": "https://doi.org/10.1186/s40561-016-0026-2"
+  },
+  {
+    "id": 5,
+    "authors": "Gros B.",
+    "title": "The design of smart educational environments",
+    "year": 2016,
+    "focus": "Проектирование",
+    "doi": "https://doi.org/10.1186/s40561-016-0039-x"
+  },
+  {
+    "id": 6,
+    "authors": "Freigang S., Schlenker L., Köhler T.",
+    "title": "A conceptual framework for designing smart learning environments",
+    "year": 2018,
+    "focus": "Проектирование",
+    "doi": "https://doi.org/10.1186/s40561-018-0076-8"
+  },
+  {
+    "id": 7,
+    "authors": "Badshah A., Ghani A., Daud A., Jalal A., Bilal M., Crowcroft J.",
+    "title": "Towards Smart Education through Internet of Things: A Survey",
+    "year": 2024,
+    "focus": "Технологии",
+    "doi": "https://doi.org/10.1145/3610401"
+  },
+  {
+    "id": 8,
+    "authors": "Yang J., Shi G., Zhu W., Sun Y.",
+    "title": "Intelligent technologies in smart education: a comprehensive review of transformative pillars and their impact on teaching and learning methods",
+    "year": 2025,
+    "focus": "Технологии",
+    "doi": "https://doi.org/10.1057/s41599-025-05444-0"
+  },
+  {
+    "id": 9,
+    "authors": "Dhouib A., Fadi Hijab M. H., Chemnad K., Al-Thani D., Othman A.",
+    "title": "Advancing inclusive smart learning environments: a systematic review of technologies, challenges, and best practices for students with disabilities",
+    "year": 2025,
+    "focus": "Доступность",
+    "doi": "https://doi.org/10.1186/s40561-025-00416-y"
+  },
+  {
+    "id": 10,
+    "authors": "Cao J., Rashid R. A. B. A., Zhu H., Lyu B., Huang Y., Li X.",
+    "title": "The effects of smart learning environments on learning outcomes: a meta-analysis of 43 experimental and quasi-experimental studies",
+    "year": 2026,
+    "focus": "Результаты",
+    "doi": "https://doi.org/10.3389/feduc.2026.1829962"
+  }
+]
